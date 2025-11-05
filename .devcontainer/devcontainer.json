@@ -1,0 +1,58 @@
+{
+  "name": "Node + Python + Spark (local) - 4c8g",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".",
+    "args": {
+      "SPARK_VERSION": "3.5.3",
+      "HADOOP_VERSION": "3"
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installTools": true
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-python.vscode-pylance",
+        "github.vscode-github-actions",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.analysis.indexing": true,
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": true,
+        "jupyter.notebookFileRoot": "${workspaceFolder}"
+      }
+    }
+  },
+  "containerEnv": {
+    "SPARK_HOME": "/opt/spark",
+    "PATH": "/opt/spark/bin:/opt/spark/sbin:${PATH}",
+    "JAVA_HOME": "/usr/lib/jvm/msopenjdk-17-amd64",
+    "SPARK_LOCAL_IP": "127.0.0.1",
+    "PYSPARK_PYTHON": "python",
+    "PYSPARK_DRIVER_PYTHON": "python",
+    "PYARROW_IGNORE_TIMEZONE": "1"
+  },
+  "forwardPorts": [
+    4040,
+    4041,
+    8888
+  ],
+  "postCreateCommand": "bash .devcontainer/postCreate.sh",
+  "remoteUser": "vscode"
+}
